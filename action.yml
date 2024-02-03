@@ -9,4 +9,6 @@ inputs:
 
 runs:
   using: 'composite'
-  run: echo "${{ inputs.TestInput }}"
+  steps:
+    - run: echo "${{ inputs.TestInput }}"
+      shell: bash
