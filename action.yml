@@ -15,5 +15,6 @@ runs:
       run: |
         echo "Checking ref"
         git rev-parse HEAD
+      shell: bash
     - run: echo "${{ inputs.TestInput }}"
       shell: bash
