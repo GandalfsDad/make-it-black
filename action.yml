@@ -3,9 +3,10 @@ name: make-it-black
 description: Action to run black on python files and commit
 
 inputs:
-  TestInput:
-    description: 'Test Input'
-    required: True
+  python-version:
+    description: 'Python Version'
+    required: false
+    default: '3.11'
 
 runs:
   using: 'composite'
@@ -16,5 +17,17 @@ runs:
         echo "Checking ref"
         git rev-parse HEAD
       shell: bash
-    - run: echo "${{ inputs.TestInput }}"
+    - name: Setup Python
+      uses: actions/setup-python
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install-black
+      run: pip install --upgrade black
+      shell: bash
+    - name: Run Black
+      run: black .
+      shell: bash
+    - name: Check Status
+      run: |
+        git status
       shell: bash
