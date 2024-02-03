@@ -1,0 +1,52 @@
+name: make-it-black
+
+description: Action to run black on python files and commit
+
+inputs:
+  python-version:
+    description: 'Python Version'
+    required: false
+    default: '3.11'
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Check ref
+      run: |
+        echo "Checking ref"
+        git rev-parse HEAD
+      shell: bash
+    - name: Check ref
+      run: |
+        echo "Checking ref"
+        git rev-parse HEAD
+      shell: bash
+    - name: Switch to branch
+      run: git checkout ${{ github.head_ref }}
+      shell: bash
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install-black
+      run: pip install --upgrade black
+      shell: bash
+    - name: Run Black
+      run: black .
+      shell: bash
+    - name: Commit changes
+      run: |
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        git add .
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Blackened python files"
+          git push
+        fi
+      shell: bash
+    
