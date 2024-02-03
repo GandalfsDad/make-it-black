@@ -1,0 +1,12 @@
+name: make-it-black
+
+description: Action to run black on python files and commit
+
+inputs:
+  TestInput:
+    description: 'Test Input'
+    required: True
+
+runs:
+  using: 'composite'
+  run: echo "${{ inputs.TestInput }}"
