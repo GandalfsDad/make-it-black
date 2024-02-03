@@ -25,7 +25,7 @@ runs:
         git rev-parse HEAD
       shell: bash
     - name: Switch to branch
-      run: git checkout ${GITHUB_REF#refs/heads/}
+      run: git checkout ${{ github.head_ref }}
       shell: bash
     - name: Setup Python
       uses: actions/setup-python@v5
