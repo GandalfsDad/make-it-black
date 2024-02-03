@@ -12,10 +12,15 @@ runs:
   using: 'composite'
   steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: Check ref
       run: |
         echo "Checking ref"
         git rev-parse HEAD
+      shell: bash
+    - name: Switch to branch
+        run: git checkout ${GITHUB_REF#refs/heads/}
       shell: bash
     - name: Setup Python
       uses: actions/setup-python@v5
