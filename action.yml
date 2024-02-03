@@ -27,7 +27,12 @@ runs:
     - name: Run Black
       run: black .
       shell: bash
-    - name: Check Status
+    - name: Commit changes
       run: |
-        git status
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        git add .
+        git commit -m "Blackened python files"
+        git push
       shell: bash
+    
