@@ -10,5 +10,10 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - uses: actions/checkout@v4
+    - name: Check ref
+      run: |
+        echo "Checking ref"
+        git rev-parse HEAD
     - run: echo "${{ inputs.TestInput }}"
       shell: bash
